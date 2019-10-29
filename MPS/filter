@@ -12,16 +12,23 @@ if __name__== "__main__":
     sv_x = np.arange(-0.1,20,1)
     print(len(sv_x))
     sv_y = np.sin(sv_x)/sv_x
+    filt_sv_y = sv_y*np.hamming(len(sv_y))
 
-    filt_y = np.zeros(len(y) + len(sv_x) - 1)
+#свертка применяя код numpy
+    filtered = np.convolve(y, filt_sv_y, mode='full')
+    print(len(filtered))
+#свертка руками
+    #filt_y = np.zeros(len(y) + len(sv_x) - 1)
 
-    for i in range(len(y)):
-        for j in range(len(sv_y)):
-            filt_y[i] += y[i] * sv_y[j]
+    #for i in range(len(y)):
+        #for j in range(len(sv_y)):
+            #filt_y[i] += y[i] * sv_y[j]
 
-    print(len(filt_y))
+   # print(len(filt_y))
+    #plt.plot(filt_y)
 
-    plt.plot(filt_y)
+    print(len(filtered))
+    plt.plot(filtered)
     plt.grid(True)
     plt.plot(x,y,'b')
     plt.show()
